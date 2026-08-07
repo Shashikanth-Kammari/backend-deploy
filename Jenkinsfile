@@ -24,6 +24,30 @@ pipeline {
                }
             }
         }
+        stage('Init') {
+            steps {
+               sh """
+                cd terraform
+                terraform init
+                """
+            }
+        }
+         stage('paln') {
+            steps {
+               sh """
+                cd terraform
+                terraform paln
+                """
+            }
+        }
+        stage('Deploy') {
+            steps {
+               sh """
+                cd terraform
+                
+                """
+            }
+        }
     post { 
         always { 
             echo 'I will always say Hello again!'
