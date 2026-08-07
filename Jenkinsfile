@@ -36,18 +36,18 @@ pipeline {
             steps {
                sh """
                 cd terraform
-                terraform paln
+                terraform paln -var="app_version=${params.appVersion}"
                 """
             }
         }
-        stage('Deploy') {
-            steps {
-               sh """
-                cd terraform
+        // stage('Deploy') {
+        //     steps {
+        //        sh """
+        //         cd terraform
                 
-                """
-            }
-        }
+        //         """
+        //     }
+        // }
     post { 
         always { 
             echo 'I will always say Hello again!'
