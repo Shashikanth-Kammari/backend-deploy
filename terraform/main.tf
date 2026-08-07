@@ -33,11 +33,11 @@ resource "null_resource" "backend" {
     source      = "${var.common_tags.component}.sh"
     destination = "/tmp/${var.common_tags.component}.sh"
   }
-provisioner "remote-exec" {
+  provisioner "remote-exec" {
         inline = [
             "chmod +x /tmp/${var.common_tags.Component}.sh",
             "sudo sh /tmp/${var.common_tags.Component}.sh ${var.common_tags.Component} ${var.environment} ${var.app_version}"
-        ]
+        ] 
     } 
 }
 resource "aws_ec2_instance_state" "backend" {
