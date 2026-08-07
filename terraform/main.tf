@@ -18,7 +18,7 @@ module "backend" {
   )
 }
 
-resource "null_resource" "backend_delete" {
+resource "null_resource" "backend" {
   # Changes to any instance of the cluster requires re-provisioning
   triggers = {
     instance_ids = module.backend.instance_id
@@ -29,18 +29,17 @@ resource "null_resource" "backend_delete" {
     password    = "Need_to_give_password"
     host        = module.backend.private_ip
   }
-  # provisioner "file" {
-  #   source      = "${var.common_tags.component}.sh"
-  #   destination = "/tmp/${var.common_tags.component}.sh"
-  # }
-
-
-  provisioner "local-exec" {
-      command = "aws ec2 terminate-instances --instance-ids ${module.backend.backend_id}"
-    }
-    depends_on = [aws-ami_from_instance.backend]
-}  
-
+  provisioner "file" {
+    source      = "${var.common_tags.component}.sh"
+    destination = "/tmp/${var.common_tags.component}.sh"
+  }
+provisioner "remote-exec" {
+        inline = [
+            "chmod +x /tmp/${var.common_tags.Component}.sh",
+            "sudo sh /tmp/${var.common_tags.Component}.sh ${var.common_tags.Component} ${var.environment} ${var.app_version}"
+        ]
+    } 
+}
 resource "aws_ec2_instance_state" "backend" {
   instance_id = module.backend.id
   state       = "stopped"
