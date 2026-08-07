@@ -40,14 +40,14 @@ pipeline {
                 """
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //        sh """
-        //         cd terraform
-                
-        //         """
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+               sh """
+                cd terraform
+                terraform apply -auto-approve
+                """
+            }
+        }
     post { 
         always { 
             echo 'I will always say Hello again!'
