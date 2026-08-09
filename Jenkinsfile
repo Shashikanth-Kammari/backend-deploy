@@ -13,7 +13,7 @@ pipeline {
     }
     evironment {
         appVersion = ''
-        nexusUrl = 'http://localhost:8081'
+        nexusUrl = 'shashikanth.online:8081'
     }
     
     stages {
