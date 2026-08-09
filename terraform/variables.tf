@@ -19,6 +19,5 @@ variable "zone_name" {
   default = "shashikanth-devops.online"
 }
 
-variable "app_version" {
-  
+variable "app_version" { 
 }
